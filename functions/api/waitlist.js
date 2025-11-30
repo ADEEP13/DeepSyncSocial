@@ -44,43 +44,233 @@ class ResendClient {
 }
 
 function generateWelcomeEmail(name, email) {
+  // Professional HTML template with personalized name
+  const htmlTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to DeepSync Social</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9fafb;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .email-header {
+            background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .email-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+        }
+        .email-header p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        .email-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .email-content {
+            padding: 40px 30px;
+            background-color: #f9fafb;
+        }
+        .email-content h2 {
+            font-size: 20px;
+            color: #111827;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .email-content p {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .email-content strong {
+            color: #111827;
+            font-weight: 600;
+        }
+        .feature-section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 6px;
+            margin: 25px 0;
+            border-left: 4px solid #ff6b35;
+        }
+        .feature-section h3 {
+            font-size: 16px;
+            color: #ff6b35;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .feature-section p {
+            font-size: 13px;
+            color: #6b7280;
+            margin: 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #ff6b35;
+            color: white;
+            padding: 12px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 25px 0;
+        }
+        .divider {
+            border-top: 1px solid #e5e7eb;
+            margin: 30px 0;
+        }
+        .social-links {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+            line-height: 40px;
+            text-align: center;
+            margin: 0 8px;
+            text-decoration: none;
+            color: #ff6b35;
+            font-weight: 600;
+        }
+        .email-footer {
+            background-color: #111827;
+            color: #d1d5db;
+            padding: 30px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .email-footer p {
+            margin: 5px 0;
+            color: #d1d5db;
+        }
+        .email-footer a {
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        .footer-divider {
+            border-top: 1px solid #374151;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <table cellpadding="0" cellspacing="0" width="100%" style="background-color: #f9fafb;">
+        <tr>
+            <td align="center" style="padding: 20px;">
+                <div class="email-container">
+                    <!-- Header -->
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td class="email-header">
+                                <div class="email-icon">🚀</div>
+                                <h1>Welcome to DeepSync Social!</h1>
+                                <p>You're now part of our community</p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Content -->
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td class="email-content">
+                                <h2>Hi <strong>${name}</strong>,</h2>
+                                
+                                <p>Thank you for joining our waitlist! We're thrilled to have you as part of the DeepSync Social community.</p>
+                                
+                                <p>We're building something special – <strong>the future of synchronized content sharing</strong>. This platform will revolutionize how creators and businesses collaborate and amplify their message.</p>
+
+                                <!-- Feature Section -->
+                                <div class="feature-section">
+                                    <h3>✨ What's Coming</h3>
+                                    <p>Stay tuned for exciting updates about features, beta access, and exclusive opportunities for our early supporters.</p>
+                                </div>
+
+                                <div class="feature-section">
+                                    <h3>💬 Questions?</h3>
+                                    <p>Feel free to reach out to us anytime. We'd love to hear your thoughts, questions, or feedback about DeepSync Social.</p>
+                                </div>
+
+                                <center>
+                                    <a href="https://deepsyncsocial.tech" class="cta-button">Visit Our Website</a>
+                                </center>
+
+                                <div class="divider"></div>
+
+                                <p style="font-size: 13px; text-align: center; color: #9ca3af;">
+                                    Follow us for the latest updates
+                                </p>
+
+                                <div class="social-links">
+                                    <a href="https://twitter.com/deepsyncsocial" class="social-link">𝕏</a>
+                                    <a href="https://linkedin.com/company/deepsyncsocial" class="social-link">in</a>
+                                    <a href="https://instagram.com/deepsyncsocial" class="social-link">📷</a>
+                                </div>
+
+                                <p style="font-size: 12px; color: #9ca3af; text-align: center; margin-top: 25px;">
+                                    We're excited to share what we've been building. This is just the beginning!
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- Footer -->
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td class="email-footer">
+                                <p>© 2025 DeepSync Social. All rights reserved.</p>
+                                <div class="footer-divider"></div>
+                                <p>
+                                    <a href="https://deepsyncsocial.tech">Website</a> • 
+                                    <a href="https://deepsyncsocial.tech#privacy">Privacy Policy</a> • 
+                                    <a href="https://deepsyncsocial.tech#contact">Contact Us</a>
+                                </p>
+                                <p style="margin-top: 10px;">
+                                    Have feedback? <a href="mailto:support@deepsyncsocial.tech">Let us know</a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>`;
+
   return {
     from: 'DeepSync Social <noreply@deepsyncsocial.tech>',
     to: email,
     subject: `Welcome to DeepSync Social, ${name}!`,
-    html: `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
-            .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
-            .button { background: #ff6b35; color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; display: inline-block; margin-top: 20px; }
-            .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #999; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>Welcome to DeepSync Social! 🚀</h1>
-            </div>
-            <div class="content">
-              <p>Hi <strong>${name}</strong>,</p>
-              <p>Thank you for joining our waitlist! We're excited to have you on board.</p>
-              <p>DeepSync Social is building the future of synchronized content sharing. Stay tuned for updates!</p>
-              <p>In the meantime, feel free to reach out if you have any questions or feedback.</p>
-              <a href="https://deepsyncsocial.tech" class="button">Visit Our Website</a>
-              <div class="footer">
-                <p>© 2025 DeepSync Social. All rights reserved.</p>
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
-    `,
+    html: htmlTemplate,
   };
 }
 
@@ -105,6 +295,11 @@ export default {
     // Route: POST /api/waitlist
     if (path === '/api/waitlist' && request.method === 'POST') {
       return handleWaitlist(request, env);
+    }
+
+    // Route: POST /api/send-bulk-email (send emails to all users)
+    if (path === '/api/send-bulk-email' && request.method === 'POST') {
+      return handleBulkEmail(request, env);
     }
 
     // Route: Serve static files or index.html
@@ -219,6 +414,89 @@ async function handleWaitlist(request, env) {
     return new Response(
       JSON.stringify({ success: false, message: 'Server error' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+}
+
+async function handleBulkEmail(request, env) {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json; charset=utf-8',
+  };
+
+  try {
+    // Verify authorization (you can add API key check here)
+    const authHeader = request.headers.get('Authorization');
+    if (!authHeader || authHeader !== `Bearer ${env.RESEND_API_KEY}`) {
+      return new Response(
+        JSON.stringify({ success: false, message: 'Unauthorized' }),
+        { status: 401, headers: corsHeaders }
+      );
+    }
+
+    const db = env.DB;
+    if (!db) {
+      return new Response(
+        JSON.stringify({ success: false, message: 'Database not available' }),
+        { status: 500, headers: corsHeaders }
+      );
+    }
+
+    // Fetch all users from waitlist
+    const users = await db
+      .prepare('SELECT name, email FROM waitlist ORDER BY created_at DESC')
+      .all();
+
+    if (!users.results || users.results.length === 0) {
+      return new Response(
+        JSON.stringify({ success: true, message: 'No users to email', sent: 0 }),
+        { status: 200, headers: corsHeaders }
+      );
+    }
+
+    // Send emails to all users
+    const resend = new ResendClient(env.RESEND_API_KEY);
+    let successCount = 0;
+    let failureCount = 0;
+    const failures = [];
+
+    for (const user of users.results) {
+      const emailResult = await resend.send(
+        generateWelcomeEmail(user.name, user.email)
+      );
+
+      if (emailResult.success) {
+        successCount++;
+        console.log(`Email sent to ${user.email}`);
+      } else {
+        failureCount++;
+        failures.push({ email: user.email, error: emailResult.error });
+        console.warn(`Failed to send email to ${user.email}:`, emailResult.error);
+      }
+
+      // Add slight delay to avoid rate limiting
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: `Bulk email campaign completed`,
+        total: users.results.length,
+        sent: successCount,
+        failed: failureCount,
+        failures: failureCount > 0 ? failures : [],
+      }),
+      { status: 200, headers: corsHeaders }
+    );
+
+  } catch (error) {
+    console.error('Bulk email error:', error);
+    return new Response(
+      JSON.stringify({ success: false, message: 'Server error', error: error.message }),
+      { status: 500, headers: corsHeaders }
     );
   }
 }
