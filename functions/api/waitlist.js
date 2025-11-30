@@ -302,6 +302,11 @@ export default {
       return handleBulkEmail(request, env);
     }
 
+    // Route: GET /api/test (test endpoint)
+    if (path === '/api/test' && request.method === 'GET') {
+      return jsonResponse({ success: true, message: 'API is working', time: new Date().toISOString() });
+    }
+
     // Route: Serve static files or index.html
     if (request.method === 'GET') {
       return serveStatic(request, env);
