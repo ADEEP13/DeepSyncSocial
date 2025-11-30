@@ -118,11 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Success: show message and reset form
                 showStatus(data.message || "You're on the waitlist! ✅", 'success');
                 waitlistForm.reset();
-                
-                // Show share card after 1 second
-                setTimeout(() => {
-                    showShareCard(name, struggle);
-                }, 1000);
+                emailInput.focus();
             } else {
                 // Error from server
                 showStatus(
@@ -220,71 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
             contactModal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
-    }
-
-    /* ========================================
-       Share Card Functions
-       ======================================== */
-    
-    function showShareCard(name, struggle) {
-        const shareCardModal = document.getElementById('shareCardModal');
-        const closeShareCard = document.getElementById('closeShareCard');
-        const shareCardName = document.getElementById('shareCardName');
-        const shareCardStruggle = document.getElementById('shareCardStruggle');
-        
-        if (!shareCardModal) return;
-
-        // Update card with user info
-        shareCardName.textContent = `Name: ${name}`;
-        shareCardStruggle.textContent = `Struggling with: ${struggle}`;
-
-        // Show modal
-        shareCardModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-
-        // Close button
-        if (closeShareCard) {
-            closeShareCard.addEventListener('click', () => {
-                closeShareCard.removeEventListener('click', arguments.callee);
-                shareCardModal.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-        }
-
-        // Close on background click
-        shareCardModal.addEventListener('click', (e) => {
-            if (e.target === shareCardModal) {
-                shareCardModal.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Share buttons
-        const shareText = `I just joined the waitlist for DeepSyncSocial! 🚀 Join me to take a break from social media. Visit deepsyncsocial.tech`;
-        const shareUrl = 'https://deepsyncsocial.tech';
-
-        document.getElementById('shareTwitter')?.addEventListener('click', () => {
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`, '_blank', 'width=550,height=420');
-        });
-
-        document.getElementById('shareFacebook')?.addEventListener('click', () => {
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank', 'width=550,height=420');
-        });
-
-        document.getElementById('shareWhatsapp')?.addEventListener('click', () => {
-            window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`, '_blank');
-        });
-
-        document.getElementById('copyLink')?.addEventListener('click', () => {
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                const copyBtn = document.getElementById('copyLink');
-                const originalText = copyBtn.textContent;
-                copyBtn.textContent = 'Copied! ✓';
-                setTimeout(() => {
-                    copyBtn.textContent = originalText;
-                }, 2000);
-            });
-        });
     }
 });
 
