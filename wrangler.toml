@@ -18,7 +18,7 @@ directory = "."
 [[d1_databases]]
 binding = "DB"
 database_name = "deepsync"
-database_id = "YOUR_DATABASE_ID_HERE"
+database_id = "7c15a12b-8322-4714-af99-73d20b7d7400"
 
 # Production environment
 [env.production]
@@ -29,4 +29,4 @@ vars = { ENVIRONMENT = "production" }
 [[env.production.d1_databases]]
 binding = "DB"
 database_name = "deepsync"
-database_id = "YOUR_DATABASE_ID_HERE"
+database_id = "7c15a12b-8322-4714-af99-73d20b7d7400"
