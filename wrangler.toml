@@ -24,3 +24,7 @@ watch_paths = []
 
 [build.upload]
 format = "modules"
+
+# Environment Variables for Resend Email Service
+[env.production]
+vars = { RESEND_API_KEY = "re_A1ADGiND_ADbwVPWLjdMSfnz9qmY3v7Ft" }
