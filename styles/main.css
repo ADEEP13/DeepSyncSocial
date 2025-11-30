@@ -1286,7 +1286,8 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
     z-index: 1000;
     animation: fadeIn var(--transition-base);
 }
@@ -1305,40 +1306,51 @@ main {
     background: var(--color-bg-light);
     border-radius: var(--radius-xl);
     padding: var(--spacing-2xl);
-    max-width: 500px;
+    max-width: 550px;
     width: 90%;
     position: relative;
     animation: slideUp var(--transition-base);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .close-share-card {
     position: absolute;
     top: var(--spacing-lg);
     right: var(--spacing-lg);
-    background: none;
+    background: var(--color-bg-light-secondary);
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
     color: var(--color-text-light);
-    transition: color var(--transition-fast);
+    transition: all var(--transition-fast);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
 }
 
 .close-share-card:hover {
+    background: var(--color-border);
     color: var(--color-text);
+    transform: scale(1.1);
 }
 
 .share-card-content h3 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     margin-bottom: var(--spacing-sm);
-    color: var(--color-primary);
+    color: var(--color-text);
+    font-weight: 700;
 }
 
-.share-card-content p {
+.share-card-content > p:first-of-type {
     color: var(--color-text-light);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+    font-size: 0.95rem;
 }
 
+/* Preview Card Section */
 .share-card-preview {
     margin-bottom: var(--spacing-2xl);
     display: flex;
@@ -1346,53 +1358,91 @@ main {
 }
 
 .share-card {
-    background: linear-gradient(135deg, var(--color-primary-50) 0%, #fff9f7 100%);
-    border: 2px solid var(--color-primary);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8a5c 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl) var(--spacing-lg);
     text-align: center;
     width: 100%;
-    max-width: 300px;
-    box-shadow: var(--shadow-md);
+    max-width: 320px;
+    box-shadow: 0 15px 35px rgba(255, 107, 53, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.share-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.share-card::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -30%;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
 }
 
 .share-card-logo {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto var(--spacing-md);
+    width: 70px;
+    height: 70px;
+    margin: 0 auto var(--spacing-lg);
     display: block;
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
 }
 
 .share-card h4 {
-    font-size: 1.1rem;
-    color: var(--color-text);
-    margin-bottom: var(--spacing-sm);
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: var(--spacing-md);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
 }
 
 .share-card p {
     font-size: 0.9rem;
-    color: var(--color-text-light);
-    margin-bottom: var(--spacing-sm);
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    z-index: 1;
 }
 
 .share-card-cta {
-    background: var(--color-primary);
-    color: white;
-    padding: var(--spacing-sm);
-    border-radius: var(--radius-md);
-    margin-top: var(--spacing-md) !important;
-    font-weight: 600;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-primary);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-top: var(--spacing-lg) !important;
+    font-weight: 700;
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
 }
 
+/* Share Buttons Section */
 .share-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
 }
 
 .share-btn {
-    padding: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
     border: none;
     border-radius: var(--radius-lg);
     font-weight: 600;
@@ -1402,43 +1452,71 @@ main {
     align-items: center;
     justify-content: center;
     gap: var(--spacing-sm);
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.share-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left var(--transition-fast);
+}
+
+.share-btn:hover::before {
+    left: 100%;
+}
+
+.share-btn span {
+    position: relative;
+    z-index: 1;
 }
 
 .share-btn.twitter {
-    background: #1DA1F2;
+    background: linear-gradient(135deg, #1DA1F2 0%, #1a8cd8 100%);
     color: white;
 }
 
 .share-btn.twitter:hover {
-    background: #1a8cd8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(29, 161, 242, 0.3);
 }
 
 .share-btn.facebook {
-    background: #4267B2;
+    background: linear-gradient(135deg, #4267B2 0%, #365899 100%);
     color: white;
 }
 
 .share-btn.facebook:hover {
-    background: #365899;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(66, 103, 178, 0.3);
 }
 
 .share-btn.whatsapp {
-    background: #25D366;
+    background: linear-gradient(135deg, #25D366 0%, #1ea856 100%);
     color: white;
 }
 
 .share-btn.whatsapp:hover {
-    background: #1ea856;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
 }
 
 .share-btn.copy {
-    background: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
     color: white;
     grid-column: 1 / -1;
 }
 
 .share-btn.copy:hover {
-    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
 }
 
 .share-note {
@@ -1446,18 +1524,55 @@ main {
     font-size: 0.85rem;
     color: var(--color-text-lighter);
     margin-top: var(--spacing-md);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border-light);
 }
 
 @media (max-width: 768px) {
     .share-card-content {
-        padding: var(--spacing-lg);
+        padding: var(--spacing-xl);
+        border-radius: var(--radius-lg);
+    }
+
+    .share-card-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .close-share-card {
+        width: 36px;
+        height: 36px;
+        font-size: 1.25rem;
     }
 
     .share-buttons {
         grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    .share-btn {
+        padding: var(--spacing-md);
+        font-size: 0.9rem;
     }
 
     .share-btn.copy {
         grid-column: 1;
+    }
+
+    .share-card {
+        max-width: 280px;
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .share-card-logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .share-card h4 {
+        font-size: 1.1rem;
+    }
+
+    .share-card p {
+        font-size: 0.85rem;
     }
 }
