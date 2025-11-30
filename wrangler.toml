@@ -4,7 +4,7 @@
 # This configuration deploys your static HTML/CSS/JS site to Cloudflare Pages.
 # When you push to GitHub, Cloudflare automatically detects changes and deploys them.
 
-name = "deepsync"
+name = "deepsyncsocial"
 compatibility_date = "2024-11-01"
 
 # Assets directory - tells Cloudflare Pages where your static files are
