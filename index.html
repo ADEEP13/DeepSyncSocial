@@ -92,6 +92,44 @@
 
                             <p class="form-note">No spam. We'll only email you about DeepSyncSocial.</p>
                         </form>
+
+                        <!-- Share Card Modal (Hidden by default) -->
+                        <div id="shareCardModal" class="share-card-modal hidden">
+                            <div class="share-card-content">
+                                <button class="close-share-card" id="closeShareCard">&times;</button>
+                                <h3>Share Your Early Access!</h3>
+                                <p>Invite friends to join the waitlist</p>
+                                
+                                <!-- Preview Card -->
+                                <div id="shareCardPreview" class="share-card-preview">
+                                    <div class="share-card">
+                                        <img src="assets/dp.png" alt="DeepSyncSocial" class="share-card-logo">
+                                        <h4>I'm joining DeepSyncSocial!</h4>
+                                        <p id="shareCardName">Name: Adeep</p>
+                                        <p id="shareCardStruggle">Struggling with: Too much scrolling</p>
+                                        <p class="share-card-cta">Join me → deepsyncsocial.tech</p>
+                                    </div>
+                                </div>
+
+                                <!-- Share Buttons -->
+                                <div class="share-buttons">
+                                    <button class="share-btn twitter" id="shareTwitter">
+                                        <span>Share on Twitter</span>
+                                    </button>
+                                    <button class="share-btn facebook" id="shareFacebook">
+                                        <span>Share on Facebook</span>
+                                    </button>
+                                    <button class="share-btn whatsapp" id="shareWhatsapp">
+                                        <span>Share on WhatsApp</span>
+                                    </button>
+                                    <button class="share-btn copy" id="copyLink">
+                                        <span>Copy Link</span>
+                                    </button>
+                                </div>
+
+                                <p class="share-note">Earn rewards when friends join using your referral link!</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
