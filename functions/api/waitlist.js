@@ -427,15 +427,6 @@ async function handleBulkEmail(request, env) {
   };
 
   try {
-    // Verify authorization (you can add API key check here)
-    const authHeader = request.headers.get('Authorization');
-    if (!authHeader || authHeader !== `Bearer ${env.RESEND_API_KEY}`) {
-      return new Response(
-        JSON.stringify({ success: false, message: 'Unauthorized' }),
-        { status: 401, headers: corsHeaders }
-      );
-    }
-
     const db = env.DB;
     if (!db) {
       return new Response(
