@@ -1,0 +1,49 @@
+# ==============================================================================
+# DeepSyncSocial - Cloudflare Pages Configuration
+# ==============================================================================
+#
+# This is the Wrangler configuration for deploying DeepSyncSocial to
+# Cloudflare Pages with a backend API and D1 database.
+#
+# Setup Instructions:
+# 1. Create a D1 database:
+#    wrangler d1 create deepsync
+#
+# 2. Initialize the schema:
+#    wrangler d1 execute deepsync --file schema.sql
+#
+# 3. Update the d1_databases binding below with your database_id
+#
+# 4. Deploy:
+#    wrangler pages deploy .
+#
+
+name = "deepsync"
+type = "javascript"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "."
+
+# Account Configuration
+# account_id = ""  # Optional: Add your Cloudflare account ID
+
+# Environment Configuration
+[env.production]
+name = "deepsync-prod"
+
+# D1 Database Binding
+# Configured with your deepsync database
+[[d1_databases]]
+binding = "DB"
+database_name = "deepsync"
+database_id = "7c15a12b-8322-4714-af99-73d20b7d7400"
+
+# Build Configuration
+[build]
+command = ""
+cwd = "."
+watch_paths = []
+
+[build.upload]
+format = "modules"
+main = "./functions/api/waitlist.js"
+
