@@ -4,11 +4,8 @@
 # This configuration deploys your static site + serverless functions to Cloudflare Pages.
 # Form submissions are saved to D1 database automatically.
 
-name = "deepsync"
+name = "deepsyncsocial"
 compatibility_date = "2024-11-01"
-
-# Main entry point (required for functions)
-main = "functions/api/waitlist.js"
 
 # Assets directory for static files
 [assets]
@@ -16,17 +13,6 @@ directory = "."
 
 # D1 Database Binding for storing waitlist entries
 [[d1_databases]]
-binding = "DB"
-database_name = "deepsync"
-database_id = "7c15a12b-8322-4714-af99-73d20b7d7400"
-
-# Production environment
-[env.production]
-name = "deepsync-prod"
-vars = { ENVIRONMENT = "production" }
-
-# D1 binding for production
-[[env.production.d1_databases]]
 binding = "DB"
 database_name = "deepsync"
 database_id = "7c15a12b-8322-4714-af99-73d20b7d7400"
