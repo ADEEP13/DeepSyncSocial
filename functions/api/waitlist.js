@@ -3,28 +3,29 @@
  * 
  * Handles waitlist form submissions and stores them in Cloudflare D1 database.
  * This file is automatically routed by Cloudflare Pages.
- *
- * Request body:
- * {
- *   name: string (required),
- *   email: string (required),
- *   struggle: string (required)
- * }
- *
- * Response:
- * - 201: { success: true, message: string }
- * - 400: { success: false, message: string }
- * - 500: { success: false, message: string }
  */
 
 export async function onRequest(context) {
     const { request, env } = context;
 
+    // Add CORS headers to all responses
+    const corsHeaders = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json',
+    };
+
+    // Handle CORS preflight
+    if (request.method === 'OPTIONS') {
+        return new Response(null, { headers: corsHeaders });
+    }
+
     // Only allow POST requests
     if (request.method !== 'POST') {
-        return jsonResponse(
-            { success: false, message: 'Method not allowed' },
-            405
+        return new Response(
+            JSON.stringify({ success: false, message: 'Method not allowed' }),
+            { status: 405, headers: corsHeaders }
         );
     }
 
@@ -34,9 +35,10 @@ export async function onRequest(context) {
         try {
             body = await request.json();
         } catch (error) {
-            return jsonResponse(
-                { success: false, message: 'Invalid JSON in request body' },
-                400
+            console.error('JSON parse error:', error);
+            return new Response(
+                JSON.stringify({ success: false, message: 'Invalid JSON' }),
+                { status: 400, headers: corsHeaders }
             );
         }
 
@@ -44,42 +46,31 @@ export async function onRequest(context) {
 
         // Validate required fields
         if (!name || !email || !struggle) {
-            return jsonResponse(
-                {
+            return new Response(
+                JSON.stringify({
                     success: false,
-                    message: 'Name, email, and struggle selection are required',
-                },
-                400
+                    message: 'Name, email, and struggle are required',
+                }),
+                { status: 400, headers: corsHeaders }
             );
         }
 
-        // Normalize email
+        // Normalize and validate email
         const normalizedEmail = email.trim().toLowerCase();
-
-        // Validate email format
         if (!isValidEmail(normalizedEmail)) {
-            return jsonResponse(
-                { success: false, message: 'Invalid email address.' },
-                400
+            return new Response(
+                JSON.stringify({ success: false, message: 'Invalid email' }),
+                { status: 400, headers: corsHeaders }
             );
         }
 
-        // Validate struggle
-        if (typeof struggle !== 'string' || struggle.trim() === '') {
-            return jsonResponse(
-                { success: false, message: 'Invalid struggle selection' },
-                400
-            );
-        }
-
-        // Get the D1 database binding
+        // Get database binding
         const db = env.DB;
-
         if (!db) {
-            console.error('D1 database binding "DB" not configured');
-            return jsonResponse(
-                { success: false, message: 'Server error. Please try again later.' },
-                500
+            console.error('D1 binding not found');
+            return new Response(
+                JSON.stringify({ success: false, message: 'Server error' }),
+                { status: 500, headers: corsHeaders }
             );
         }
 
@@ -91,88 +82,65 @@ export async function onRequest(context) {
                 .first();
 
             if (existing) {
-                return jsonResponse(
-                    {
+                return new Response(
+                    JSON.stringify({
                         success: true,
-                        message: "You're already on the waitlist.",
-                    },
-                    200
+                        message: "You're already on the waitlist",
+                    }),
+                    { status: 200, headers: corsHeaders }
                 );
             }
-        } catch (error) {
-            console.error('Database query error:', error);
-            return jsonResponse(
-                { success: false, message: 'Server error. Please try again later.' },
-                500
-            );
+        } catch (dbError) {
+            console.error('Database query error:', dbError);
+            // Continue - might not be initialized yet
         }
 
-        // Insert into database
+        // Insert new record
         try {
-            const result = await db
+            await db
                 .prepare(
                     'INSERT INTO waitlist (name, email, struggle, created_at) VALUES (?, ?, ?, datetime("now"))'
                 )
-                .bind(
-                    name.trim(),
-                    normalizedEmail,
-                    struggle.trim()
-                )
+                .bind(name.trim(), normalizedEmail, struggle.trim())
                 .run();
 
-            return jsonResponse(
-                {
+            return new Response(
+                JSON.stringify({
                     success: true,
-                    message: 'Added to waitlist. Check your email for updates!',
-                },
-                201
+                    message: 'Successfully added to waitlist!',
+                }),
+                { status: 201, headers: corsHeaders }
             );
-        } catch (error) {
-            console.error('Database insert error:', error);
+        } catch (insertError) {
+            console.error('Database insert error:', insertError);
 
-            // Check if it's a unique constraint violation
-            if (error.message && error.message.includes('UNIQUE')) {
-                return jsonResponse(
-                    {
+            // If duplicate email, still return success
+            if (insertError.message?.includes('UNIQUE')) {
+                return new Response(
+                    JSON.stringify({
                         success: true,
-                        message: "You're already on the waitlist.",
-                    },
-                    200
+                        message: "You're already on the waitlist",
+                    }),
+                    { status: 200, headers: corsHeaders }
                 );
             }
 
-            return jsonResponse(
-                { success: false, message: 'Server error. Please try again later.' },
-                500
+            return new Response(
+                JSON.stringify({ success: false, message: 'Failed to add to waitlist' }),
+                { status: 500, headers: corsHeaders }
             );
         }
     } catch (error) {
         console.error('Unexpected error:', error);
-        return jsonResponse(
-            { success: false, message: 'Server error. Please try again later.' },
-            500
+        return new Response(
+            JSON.stringify({ success: false, message: 'Server error' }),
+            { status: 500, headers: corsHeaders }
         );
     }
 }
 
-/**
- * Validate email format with regex
- */
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
-}
-
-/**
- * Return JSON response with appropriate headers
- */
-function jsonResponse(data, status = 200) {
-    return new Response(JSON.stringify(data), {
-        status,
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            'Access-Control-Allow-Origin': '*',
-        },
-    });
 }
 
