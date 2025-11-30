@@ -1,34 +1,17 @@
 # ==============================================================================
-# DeepSyncSocial - Cloudflare Pages Configuration
+# DeepSyncSocial - Cloudflare Pages Static Site Configuration
 # ==============================================================================
-# This configuration automatically deploys your site when you push to GitHub.
-# Cloudflare Pages will detect changes and rebuild your site automatically.
+# This configuration deploys your static HTML/CSS/JS site to Cloudflare Pages.
+# When you push to GitHub, Cloudflare automatically detects changes and deploys them.
 
 name = "deepsync"
-type = "javascript"
 compatibility_date = "2024-11-01"
 
-# Pages-specific configuration
+# Assets directory - tells Cloudflare Pages where your static files are
+[assets]
+directory = "."
+
+# Environment for production deployment
 [env.production]
 name = "deepsync-prod"
-
-# Build and publish settings for Cloudflare Pages
-# These are typically configured in the Cloudflare dashboard, but can be set here:
-# - Build command: (leave empty for static sites)
-# - Output directory: (root directory contains HTML files)
-# - Root directory: / (default)
-
-# Functions routing - API endpoints
-# When you push code, Cloudflare Pages will automatically:
-# 1. Detect changes from GitHub
-# 2. Run any build commands
-# 3. Deploy updated files to your live URL
-# 4. Route API calls to /functions/ directory
-
-[[functions]]
-pattern = "/api/waitlist"
-script = "waitlist"
-
-[functions.waitlist]
-route = "/api/waitlist"
-module = true
+vars = { ENVIRONMENT = "production" }
