@@ -1,8 +1,6 @@
 # ==============================================================================
 # DeepSyncSocial - Cloudflare Pages Configuration with D1 Database
 # ==============================================================================
-# This configuration deploys your static site + serverless functions to Cloudflare Pages.
-# Form submissions are saved to D1 database automatically.
 
 name = "deepsyncsocial"
 compatibility_date = "2024-11-01"
@@ -16,3 +14,11 @@ directory = "."
 binding = "DB"
 database_name = "deepsync"
 database_id = "7c15a12b-8322-4714-af99-73d20b7d7400"
+
+# Build and deployment settings
+[build]
+command = ""
+watch_paths = []
+
+[build.upload]
+format = "modules"
