@@ -1,17 +1,32 @@
 # ==============================================================================
-# DeepSyncSocial - Cloudflare Pages Static Site Configuration
+# DeepSyncSocial - Cloudflare Pages Configuration with D1 Database
 # ==============================================================================
-# This configuration deploys your static HTML/CSS/JS site to Cloudflare Pages.
-# When you push to GitHub, Cloudflare automatically detects changes and deploys them.
+# This configuration deploys your static site + serverless functions to Cloudflare Pages.
+# Form submissions are saved to D1 database automatically.
 
 name = "deepsync"
 compatibility_date = "2024-11-01"
 
-# Assets directory - tells Cloudflare Pages where your static files are
+# Main entry point (required for functions)
+main = "functions/api/waitlist.js"
+
+# Assets directory for static files
 [assets]
 directory = "."
 
-# Environment for production deployment
+# D1 Database Binding for storing waitlist entries
+[[d1_databases]]
+binding = "DB"
+database_name = "deepsync"
+database_id = "YOUR_DATABASE_ID_HERE"
+
+# Production environment
 [env.production]
 name = "deepsync-prod"
 vars = { ENVIRONMENT = "production" }
+
+# D1 binding for production
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "deepsync"
+database_id = "YOUR_DATABASE_ID_HERE"
