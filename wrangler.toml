@@ -46,4 +46,3 @@ watch_paths = []
 [build.upload]
 format = "modules"
 main = "./functions/api/waitlist.js"
-
