@@ -1,0 +1,30 @@
+# ==============================================================================
+# DeepSyncSocial - Cloudflare Worker Configuration with D1 Database
+# ==============================================================================
+# This Worker serves static assets and handles API requests with D1 database
+
+name = "deepsyncsocial"
+main = "functions/api/waitlist.js"
+compatibility_date = "2024-11-01"
+type = "javascript"
+
+# D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "deepsync"
+database_id = "7c15a12b-8322-4714-af99-73d20b7d7400"
+
+# Static assets binding
+[assets]
+directory = "."
+
+[build]
+command = ""
+watch_paths = []
+
+[build.upload]
+format = "modules"
+
+# Environment Variables for Resend Email Service
+[env.production]
+vars = { RESEND_API_KEY = "re_A1ADGiND_ADbwVPWLjdMSfnz9qmY3v7Ft" }

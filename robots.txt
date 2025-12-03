@@ -1,0 +1,20 @@
+# Allow search engines to crawl all pages
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# Specify sitemap location
+Sitemap: https://deepsyncsocial.tech/sitemap.xml
+
+# Crawl-delay for responsible crawling
+Crawl-delay: 1
+
+# Specific rules for popular search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
